@@ -21,10 +21,7 @@ class HomeController extends Controller
         ];
 
         $first_query = Student::first();
-        
         $find_query = Student::find(3);
-
-
 
         return view('welcome', compact('queries', 'first_query', 'find_query') );
     }
