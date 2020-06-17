@@ -55,7 +55,7 @@ class StudentController extends Controller
         if ($saved) {
             // Get last created student
             $newStudent = Student::find($student->id);
-            return redirect()->route('students.show', $student);
+            return redirect()->route('students.show', $newStudent);
         }
     }
 
