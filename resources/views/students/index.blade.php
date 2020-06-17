@@ -20,9 +20,9 @@
                         <tr>
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->description }}</td>
-                            <td><a href="#" class="btn btn-success">Show</a></td>
-                            <td><a href="#" class="btn btn-warning">Show</a></td>
-                            <td><a href="#" class="btn btn-danger">Show</a></td>
+                            <td><a href="{{ route('students.show', $student->id) }}" class="btn btn-success">Show</a></td>
+                            <td><a href="#" class="btn btn-warning">Update</a></td>
+                            <td><a href="#" class="btn btn-danger">Delete</a></td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -36,8 +36,27 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        // Get POST data
+        $data = $request->all();
+
+        // Validation
+        $request->validate([
+            'name' => 'required|unique:students|max:30',
+            'description' => 'required'
+        ]);
+
+        // Instancing new student
+        $student = new Student();
+        $student->name =  $data['name'];
+        $student->description =  $data['description'];
+        $saved = $student->save();
+
+        if ($saved) {
+            // Get last created student
+            $newStudent = Student::find($student->id);
+            return redirect()->route('students.show', $student);
+        }
     }
 
     /**
@@ -46,9 +65,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Student $student)
     {
-        //
+        return view('students.show', compact('student'));
     }
 
     /**

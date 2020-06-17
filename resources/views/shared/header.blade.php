@@ -3,11 +3,11 @@
         <h3>StudentsDB</h3>
     </div>
     <div class="MainHeader-navbar">
-        <a class="text-white" href="{{ route('home') }}">
-            Home
-        </a>
-        <a class="text-white ml-3" href="">
+        <a class="text-white" href="{{ route('students.index') }}">
             Students
+        </a>
+        <a class="text-white  ml-3" href="{{ route('students.create') }}">
+            Create
         </a>
     </div>
 </header>
