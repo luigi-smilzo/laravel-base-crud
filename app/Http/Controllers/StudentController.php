@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Student;
 
 class StudentController extends Controller
@@ -41,15 +42,11 @@ class StudentController extends Controller
         $data = $request->all();
 
         // Validation
-        $request->validate([
-            'name' => 'required|unique:students|max:30',
-            'description' => 'required'
-        ]);
+        $request->validate( $this->validationRules() );
 
         // Instancing new student
         $student = new Student();
-        $student->name =  $data['name'];
-        $student->description =  $data['description'];
+        $student->fill($data);
         $saved = $student->save();
 
         if ($saved) {
@@ -76,9 +73,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -88,9 +85,20 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
-        //
+        $data = $request->all();
+
+        // validation
+        $request->validate( $this->validationRules( $student->id ) );
+
+        // update data
+        $updated = $student->update($data);
+
+        // redirect
+        if ($updated) {
+            return redirect()->route('students.show', $student->id);
+        }
     }
 
     /**
@@ -99,8 +107,31 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
+    {   
+        // Refs entity to delete
+        $ref = $student->name;
+        $deleted = $student->delete();
+
+        // redirect with session data
+        if ($deleted) {
+            return redirect()->route('students.index')->with('deleted', $ref);
+        }
+    }
+
+    /**
+     * Validation
+     */
+    private function validationRules($id = null)
     {
-        //
+        return [
+            //'name' => 'required|unique:students|max:30',
+            'name' => [
+                'required',
+                'max:30',
+                Rule::unique('students')->ignore($id)
+            ],
+            'description' => 'required'
+        ];
     }
 }

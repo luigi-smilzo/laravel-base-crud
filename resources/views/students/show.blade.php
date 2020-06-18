@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="StudentShow">
-        <div class="StudentShow-header mb-5">
+        <div class="StudentShow-header mb-4">
             <h1>Show: {{ $student->name }}</h1>
         </div>
         
