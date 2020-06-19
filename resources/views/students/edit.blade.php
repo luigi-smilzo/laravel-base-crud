@@ -22,11 +22,11 @@
 
             <div class="form-group">
                 <label for="name">Name *</label>
-                <input id="name" class="form-control mb-3" type="text" name="name" placeholder="Insert name..." value="{{ old('name',  $student->name) }}">
+                <input id="name" class="form-control mb-3" type="text" name="name" value="{{ old('name',  $student->name) }}">
             </div>
             <div class="form-group">
                 <label for="description">Description *</label>
-                <input id="description" class="form-control mb-3" type="text" name="description" placeholder="Describe the student..." value="{{ old('description', $student->description) }}">
+                <input id="description" class="form-control mb-3" type="text" name="description" value="{{ old('description', $student->description) }}">
             </div>                
                 
                 {{-- Submit --}}
