@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
 use App\Classroom;
 
@@ -13,13 +14,15 @@ class ClassroomsTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-      for ($i = 0; $i < 20; $i++)
-      {
-          $newClassroom = new Classroom();
-          $newClassroom->name = $faker->lastName();
-          $newClassroom->partecipants = $faker->numberBetween(15, 30);
+        DB::table('classrooms')->truncate();
 
-          $newClassroom->save();
-      }
+        for ($i = 0; $i < 20; $i++)
+        {
+            $newClassroom = new Classroom();
+            $newClassroom->name = $faker->lastName();
+            $newClassroom->partecipants = $faker->numberBetween(15, 30);
+
+            $newClassroom->save();
+        }
     }
 }
